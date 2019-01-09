@@ -5,41 +5,41 @@ import java.util.Scanner;
 public class TestArray {
 
 	public static void main(String[] args) {
-		//int[] arr={3,5,7,9,4,2,54,67,5};
-		int[] arr=new int[6];
-		arr[0]=101;
-		arr[1]=102;
-		arr[2]=103;
-		arr[3]=104;
-		arr[4]=105;
-		arr[5]=106;
+		//int[] array={3,5,7,9,4,2,54,67,5};
+		int[] array=new int[6];
+		array[0]=101;
+		array[1]=102;
+		array[2]=103;
+		array[3]=104;
+		array[4]=105;
+		array[5]=106;
 		
 		//System.out.println(Arrays.toString(arr));
-		for(int i:arr)
+		for(int number:array)
 		{
-			System.out.print(i+" ");
+			System.out.print(number+" ");
 		}
-		arr[3]=60;
+		array[3]=60;
 		System.out.println();
-		for(int i:arr)
+		for(int number:array)
 		{
-			System.out.print(i+" ");
+			System.out.print(number+" ");
 		}
 		
-		int size, i, del, count=0;
+		int size, number, delet, count=0;
 	       
 	       Scanner scan = new Scanner(System.in);
 		  
 		   
 	       System.out.println("\nEnter Element to be Delete : ");
-	       del = scan.nextInt();
-	       for(i=0; i<arr.length-1; i++)
+	       delet = scan.nextInt();
+	       for(number=0; number<array.length-1; number++)
 	       {
-	           if(arr[i] == del)
+	           if(array[number] == delet)
 	           {
-	               for(int j=i; j<((arr.length)-1); j++)
+	               for(int j=number; j<((array.length)-1); j++)
 	               {
-	                   arr[j] = arr[j+1];
+	                   array[j] = array[j+1];
 	               }
 	               count++;
 	               break;
@@ -53,9 +53,9 @@ public class TestArray {
 	       {
 	           System.out.print("Element Deleted Successfully..!!");
 	           System.out.print("\nNow the New Array is :\n");
-	           for(i=0; i<(arr.length-1); i++)
+	           for(number=0; number<(array.length-1); number++)
 	           {
-	               System.out.print(arr[i]+ " ");
+	               System.out.print(array[number]+ " ");
 	           }
 	       }
 		

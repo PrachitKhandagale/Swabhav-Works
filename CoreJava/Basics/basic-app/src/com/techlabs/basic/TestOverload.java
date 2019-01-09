@@ -27,39 +27,39 @@ public class TestOverload {
 		int[] array= {12,14,15,65,43,87};
 		printThis(array);
 	}
-	private static void printThis(String s)
+	private static void printThis(String passString)
 	{
-		System.out.println(s);
+		System.out.println(passString);
 		System.out.println("This is String Overload.");
 	}
-	private static void printThis(int n)
+	private static void printThis(int number)
 	{
-		System.out.println(n);
+		System.out.println(number);
 		System.out.println("This is Int Overload.");
 	}
-	private static void printThis(double d)
+	private static void printThis(double numberDbl)
 	{
-		System.out.println(d);
+		System.out.println(numberDbl);
 		System.out.println("This is Double Overload.");
 	}
-	private static void printThis(float f)
+	private static void printThis(float floatNum)
 	{
-		System.out.println(f);
+		System.out.println(floatNum);
 		System.out.println("This is Float Overload.");
 	}
-	private static void printThis(boolean b)
+	private static void printThis(boolean bool)
 	{
-		System.out.println(b);
+		System.out.println(bool);
 		System.out.println("This is Boolean Overload.");
 	}
-	private static void printThis(char c)
+	private static void printThis(char word)
 	{
-		System.out.println(c);
+		System.out.println(word);
 		System.out.println("This is Character Overload.");
 	}
-	private static void printThis(int[] arr)
+	private static void printThis(int[] array)
 	{
-		System.out.println(Arrays.toString(arr));
+		System.out.println(Arrays.toString(array));
 		System.out.println("This is Array Overload.");
 		
 	}
