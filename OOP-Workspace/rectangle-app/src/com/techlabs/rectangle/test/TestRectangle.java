@@ -11,5 +11,6 @@ public class TestRectangle {
 		System.out.println("Height of rectangle :"+rect.getHeight());
 		System.out.println("Height of rectangle :"+rect.getWidth());
 		System.out.println("Area of Rectangle is:"+rect.calculateArea());
+		System.out.println(new Rectangle().calculateArea());
 	}
 }
