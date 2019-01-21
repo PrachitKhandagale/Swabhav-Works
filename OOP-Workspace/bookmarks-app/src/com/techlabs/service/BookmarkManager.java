@@ -14,8 +14,8 @@ import com.techlabs.business.Bookmark;
 
 public class BookmarkManager {
 
-	private static String filePath = "D:\\Bookmark.html";
-	private static String backupFilePath = "D:\\Bookmark-bkp.html";
+	private static String filePath = "Data\\Bookmark.html";
+	private static String backupFilePath = "Data\\Bookmark-bkp.html";
 
 	private static void writeFile(Bookmark bookmark) {
 		try {
