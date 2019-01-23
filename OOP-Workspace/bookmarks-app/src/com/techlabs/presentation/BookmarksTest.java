@@ -1,6 +1,8 @@
 package com.techlabs.presentation;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.techlabs.business.Bookmark;
@@ -10,6 +12,9 @@ public class BookmarksTest {
 	static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) throws IOException {
+		List<Bookmark> bList = new ArrayList<>();
+		//List<Bookmark> bList=new LinkedList<>();
+		
 		String option;
 		do {
 			System.out.print("Enter Bookmark name : ");
@@ -17,12 +22,12 @@ public class BookmarksTest {
 			System.out.print("Enter url : ");
 			String url = scanner.nextLine();
 			Bookmark bookmark = new Bookmark(name, url);
-			BookmarkManager.fileChanged(bookmark);
-
+			//BookmarkManager.fileChanged(bookmark);
+			bList.add(bookmark);
 			System.out.print("Add More Entries?(Y/N):");
 			option = scanner.nextLine();
 		} while (!option.equals("n") && !option.equals("N"));
-
+		BookmarkManager.fileChanged(bList);
 		exportToFile();
 
 	}

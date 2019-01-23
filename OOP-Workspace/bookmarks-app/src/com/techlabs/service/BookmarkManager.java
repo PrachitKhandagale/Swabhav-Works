@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.List;
 
 import com.techlabs.business.Bookmark;
 
@@ -27,6 +28,8 @@ public class BookmarkManager {
 		}
 	}
 
+	
+	
 	public static void createBackup() throws IOException {
 		//System.out.println("Inside Create backup");
 		InputStream is = new FileInputStream(filePath);
@@ -46,5 +49,21 @@ public class BookmarkManager {
 	public static void fileChanged(Bookmark bookmark) {
 		writeFile(bookmark);
 		System.out.println("File Changed Successfully.");
+	}
+	
+	public static void fileChanged(List<Bookmark> bList) {
+		writeFile(bList);
+		System.out.println("File Changed Successfully.");
+	}
+	
+	private static void writeFile(List<Bookmark> bList) {
+		try {
+			FileWriter fw = new FileWriter(filePath, true);
+			for(Bookmark bookmark : bList)
+				fw.write(" <a href=\"" + bookmark.getUrl() + "\">" + bookmark.getName() + "</a><br>\n");
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

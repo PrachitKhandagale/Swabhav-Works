@@ -8,7 +8,7 @@ public class Developer extends Employee {
 		this.pa = 0.4 * basicSalary;
 	}
 
-	public double getPerformanceAllowance() {
+	public double getPa() {
 		return pa;
 	}
 

@@ -11,8 +11,8 @@ public abstract class Employee {
 	protected double ha;
 	protected double ta;
 
-	public Employee(String employeeName, int employeeNumber) {
-		this.name = employeeName;
+	public Employee(String name, int employeeNumber) {
+		this.name = name;
 		this.employeeNumber = employeeNumber;
 		this.basicSalary = 20000;
 	}
