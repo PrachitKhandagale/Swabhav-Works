@@ -1,8 +1,7 @@
 package com.techlabs.mapexample;
 
 import java.util.HashMap;
-
-import com.techlabs.setexample.TreeSetCrud;
+import java.util.Set;
 
 public class HashMapCrud {
 	HashMap<Integer,String> hashMapList = new HashMap<Integer,String>();
@@ -22,7 +21,11 @@ public class HashMapCrud {
 	}
 
 	public void read() {
-		System.out.println(hashMapList);
+		//System.out.println(hashMapList);
+		Set<Integer> set=hashMapList.keySet();
+		for(Integer integer:set) {
+			System.out.println(integer+" "+hashMapList.get(integer));
+		}
 	}
 
 	public void update() {

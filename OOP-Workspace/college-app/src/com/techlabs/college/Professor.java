@@ -17,6 +17,7 @@ public class Professor extends Person implements ISalariedEmployee {
 	public double getHra() {
 		return hra;
 	}
+	
 
 	@Override
 	public void calculateSalary() {

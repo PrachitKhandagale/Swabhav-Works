@@ -1,5 +1,6 @@
 package com.techlabs.mapexample;
 
+import java.util.Set;
 import java.util.TreeMap;
 
 public class TreeMapCrud {
@@ -20,7 +21,12 @@ public class TreeMapCrud {
 	}
 
 	public void read() {
-		System.out.println(treeMapList);
+		//System.out.println(treeMapList);
+		Set<Integer> set = treeMapList.keySet();
+		for (Integer integer : set) {
+			System.out.println(integer + " " + treeMapList.get(integer));
+		}
+		
 	}
 
 	public void update() {

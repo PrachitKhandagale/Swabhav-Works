@@ -1,9 +1,10 @@
 package com.techlabs.mapexample;
 
 import java.util.LinkedHashMap;
+import java.util.Set;
 
 public class LinkedHashMapCrud {
-	LinkedHashMap<Integer,String> linkedHashMapList = new LinkedHashMap<Integer,String>();
+	LinkedHashMap<Integer, String> linkedHashMapList = new LinkedHashMap<Integer, String>();
 
 	public static void main(String[] args) {
 		LinkedHashMapCrud listcrud = new LinkedHashMapCrud();
@@ -14,17 +15,21 @@ public class LinkedHashMapCrud {
 	}
 
 	public void create() {
-		linkedHashMapList.put(1,"Prachit");
-		linkedHashMapList.put(2,"Vinod");
-		linkedHashMapList.put(3,"Ajay");
+		linkedHashMapList.put(1, "Prachit");
+		linkedHashMapList.put(2, "Vinod");
+		linkedHashMapList.put(3, "Ajay");
 	}
 
 	public void read() {
-		System.out.println(linkedHashMapList);
+		//System.out.println(linkedHashMapList);
+		Set<Integer> set = linkedHashMapList.keySet();
+		for (Integer integer : set) {
+			System.out.println(integer + " " + linkedHashMapList.get(integer));
+		}
 	}
 
 	public void update() {
-		linkedHashMapList.put(2,"Suchit");
+		linkedHashMapList.put(2, "Suchit");
 		linkedHashMapList.replace(3, "James");
 		System.out.println(linkedHashMapList + "\nAfter Updating");
 		System.out.println(linkedHashMapList);
