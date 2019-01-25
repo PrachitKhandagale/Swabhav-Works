@@ -1,4 +1,4 @@
-package com.techlabs.guitarr;
+package com.techlabs.guitar.test;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -7,8 +7,10 @@ import java.util.Map;
 
 import com.techlabs.enumclass.Builder;
 import com.techlabs.enumclass.InstrumentType;
-import com.techlabs.enumclass.Type;
 import com.techlabs.enumclass.Wood;
+import com.techlabs.guitarr.Instrument;
+import com.techlabs.guitarr.InstrumentSpec;
+import com.techlabs.guitarr.Inventory;
 
 public class FindInstrumentTester {
 	public static void main(String[] args) {

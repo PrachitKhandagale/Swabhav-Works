@@ -4,6 +4,7 @@ public class LineItem {
 	private int id;
 	private int quantity;
 	private Product product;
+	private double lineItemCost;
 
 	public LineItem(int id, int quantity, Product product) {
 		this.id = id;
@@ -23,9 +24,13 @@ public class LineItem {
 		return product;
 	}
 
+	public double getLineItemCost() {
+		return lineItemCost;
+	}
+
 	public double calculateLineItemCost() {
 
-		return quantity * product.costAfterDiscount();
+		return lineItemCost = (quantity * product.costAfterDiscount());
 	}
 
 }
