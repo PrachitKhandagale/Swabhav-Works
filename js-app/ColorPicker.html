@@ -1,0 +1,19 @@
+<html>
+    <head>
+
+    </head>
+    <body id="color">
+        Picker:
+        <select id="change">
+            <option  value="#FFA07A" >Red</option>
+            <option  value="#E0FFFF" >Blue</option>
+            <option value="#90EE90" >Green</option>
+        </select>
+        <script>
+           change.onchange= function(){
+               var backgroundcolor=change.options[change.selectedIndex].value;
+               document.getElementById("color").style.background=backgroundcolor;
+            }   
+        </script>
+    </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<script>
+		var a = "12" + "3";
+		var b = "123";
+
+		alert(a === b); // returns true, because strings behave like value types
+
+		var c = new String("123");
+		var d = "123";
+
+		alert(c === d); // returns false !! (but they are equal and of the same type)
+	</script>
+
+</body>
+</html>

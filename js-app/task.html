@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>
+
+        </title>
+    </head>
+    <body>
+        <div>
+            Enter Task:<input type="text" id="input" placeholder="Something">
+            <input type="submit" name="Add" onclick="myFunction()">
+            <span style="color:red"id="alert"></span>
+        </div>
+            <p id="append">
+                <ul id="list">
+
+                </ul>
+            </p>
+            <script>
+                function myFunction() { 
+                    var item=document.getElementById("input").value;
+                    var ul=document.getElementById("list");
+                    var li=document.createElement("li");
+                    if(item!="" && item!=" "){
+                    li.appendChild(document.createTextNode(""+item));
+                    ul.appendChild(li);
+                    document.getElementById("input").value="";
+                    document.getElementById("alert").innerHTML="";
+                    }
+                    else{
+                        document.getElementById("alert").innerHTML="*Task Not entered";
+                    }
+                 }
+            </script>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+<html>
+    <body>
+            <canvas id="myCanvas" width="300" height="150">
+            </canvas>
+                    
+                <script>
+                    function circleCanvas(){
+                    var c = document.getElementById("myCanvas");
+                    var ctx = c.getContext("2d");
+                    ctx.fillStyle="red";
+                    ctx.beginPath();
+                    ctx.arc(100, 75, 50,0.0*Math.PI, 2 * Math.PI);
+                     
+                    ctx.closePath();
+                    ctx.fill();
+
+                    var ctx1 = c.getContext("2d");
+                    ctx1.fillStyle="green";
+                    ctx1.beginPath();
+                    ctx1.arc(100, 75, 50,0.0*Math.PI, 0.7 * Math.PI);
+                    ctx1.closePath();
+                    ctx1.fill();
+                    }
+                    window.onload=circleCanvas;
+                </script> 
+    </body>
+</html>

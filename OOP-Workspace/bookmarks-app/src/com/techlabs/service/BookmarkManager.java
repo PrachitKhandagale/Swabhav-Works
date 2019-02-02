@@ -15,23 +15,23 @@ import com.techlabs.business.Bookmark;
 
 public class BookmarkManager {
 
-	private static String filePath = "Data\\Bookmark.html";
-	private static String backupFilePath = "Data\\Bookmark-bkp.html";
+	private static String filePath = "Data\\Bookmark.csv";
+	private static String backupFilePath = "Data\\Bookmark-bkp.csv";
 
 	private static void writeFile(Bookmark bookmark) {
 		try {
 			FileWriter fw = new FileWriter(filePath, true);
-			fw.write(" <a href=\"" + bookmark.getUrl() + "\">" + bookmark.getName() + "</a><br>\n");
+			// fw.write(" <a href=\"" + bookmark.getUrl() + "\">" + bookmark.getName() +
+			// "</a><br>\n");
+			fw.write(bookmark.getName() + "," + bookmark.getUrl());
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	
-	
 	public static void createBackup() throws IOException {
-		//System.out.println("Inside Create backup");
+		// System.out.println("Inside Create backup");
 		InputStream is = new FileInputStream(filePath);
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
@@ -50,17 +50,19 @@ public class BookmarkManager {
 		writeFile(bookmark);
 		System.out.println("File Changed Successfully.");
 	}
-	
+
 	public static void fileChanged(List<Bookmark> bList) {
 		writeFile(bList);
 		System.out.println("File Changed Successfully.");
 	}
-	
+
 	private static void writeFile(List<Bookmark> bList) {
 		try {
 			FileWriter fw = new FileWriter(filePath, true);
-			for(Bookmark bookmark : bList)
-				fw.write(" <a href=\"" + bookmark.getUrl() + "\">" + bookmark.getName() + "</a><br>\n");
+			for (Bookmark bookmark : bList)
+				// fw.write(" <a href=\"" + bookmark.getUrl() + "\">" + bookmark.getName() +
+				// "</a><br>\n");
+				fw.write(bookmark.getName() + "," + bookmark.getUrl());
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();

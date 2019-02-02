@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>JavaScript</h2>
+	<p>This is just the example about "Swabhav Techlabs"</p>
+	<p id="demo"></p>
+
+	<script>
+		document.getElementById("demo").innerHTML = "Swabhav Techlabs";
+	</script>
+	<button type="button"
+		onclick="document.getElementById('demo1').innerHTML = Date()">
+		Click me to display Date and Time.</button>
+
+	<p id="demo1"></p>
+
+
+	<p id="function">Using Function with JavaScript</p>
+
+	<script>
+		function myFunction() {
+			document.getElementById("function").style.fontSize = "25px";
+			document.getElementById("function").style.color = "red";
+			document.getElementById("function").style.backgroundColor = "yellow";
+		}
+	</script>
+
+	<button type="button" onclick="myFunction()">Click Me!</button>
+
+
+	<h2>JavaScript Loops</h2>
+
+	<p id="loop"></p>
+
+	<script>
+		var cars = [ "BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi" ];
+		var text = "";
+		var i;
+		for (i = 0; i < cars.length; i++) {
+			text += cars[i] + "<br>";
+		}
+		document.getElementById("loop").innerHTML = text;
+	</script>
+
+	<button onclick="myFunction1()">Try it</button>
+
+	<p id="ifelse"></p>
+
+	<script>
+		function myFunction1() {
+			var hour = new Date().getHours();
+			var greeting;
+			if (hour < 18) {
+				greeting = "Good day";
+			} else {
+				greeting = "Good evening";
+			}
+			document.getElementById("ifelse").innerHTML = greeting;
+		}
+	</script>
+	
+	
+	<script type = "text/javascript">
+         var array = new Array( 10, 20, 30 );
+         document.write("array.length is : " + array.length); 
+      </script> 
+
+</body>
+</html>
