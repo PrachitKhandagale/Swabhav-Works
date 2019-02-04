@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <script src="Questions.js" type="text/javascript"></script>
+    <script src="ResultChart.js" type="text/javascript"></script>
+    <style>
+        .q{
+                display: none;
+            }
+            #q0{
+                display:block;
+            }
+        </style>
+</head>
+
+<body>
+
+
+    <h4>Questions</h4><br>
+    <script>
+        questionList = shuffle(questionList);
+
+        var questions = [];
+        for (var i = 0; i < 5; i++) {
+            questions.push(questionList[i]);
+        }
+
+        for (var i = 0; i < questions.length; i++) {
+            document.write(`<div id="q${i}" class="q">`);
+
+            document.write(`<p>${i + 1}. ${questions[i].question}</p>`);
+            for (var j = 0; j < 4; j++) {
+
+                document.write(`<input type="radio" name="option${i}" value="${questions[i].option[j]}" onclick="valueChanged(this)" />${questions[i].option[j]}<br>`);
+            }
+            document.write("</div>");
+        }
+        var currentQuestionNumber = 0;
+        var selectedValue;
+        var score = 0;
+        function showNextQuestion() {
+            if (selectedValue == questions[currentQuestionNumber].answer)
+                score++;
+            if (currentQuestionNumber < questions.length - 1) {
+                document.getElementById(`q${currentQuestionNumber}`).style.display = 'none';
+                currentQuestionNumber++;
+                document.getElementById(`q${currentQuestionNumber}`).style.display = 'block';
+            } else {
+                document.getElementById("finalResult").innerHTML = `You answered ${score} questions correctly.`;
+                document.getElementById("button").disabled = true;
+                displayChart(score);
+            }
+        }
+
+        function valueChanged(e) {
+            selectedValue = e.value;
+        }
+
+        function shuffle(arra1) {
+            var ctr = arra1.length, temp, index;
+
+            // While there are elements in the array
+            while (ctr > 0) {
+                // Pick a random index
+                index = Math.floor(Math.random() * ctr);
+                // Decrease ctr by 1
+                ctr--;
+                // And swap the last element with it
+                temp = arra1[ctr];
+                arra1[ctr] = arra1[index];
+                arra1[index] = temp;
+            }
+            return arra1;
+        }
+
+    </script>
+    <br>
+
+    <input type="submit" value="Next" id="button" onclick="showNextQuestion()">
+    <span id="finalResult"></span><br><br>
+
+    <canvas id="canvas" width="200" height="200" />
+
+</body>
+
+</html>
