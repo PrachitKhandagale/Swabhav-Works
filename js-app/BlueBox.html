@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+</head>
+<body>
+        <div id="displayButton">
+                
+        </div>
+        <input type="button" id="displayButton" value="Start" onclick="displayButton()">
+        <div id="correct"></div><br>
+        <button type="submit" onClick="refreshPage()">Restart</button>
+    <script>
+    function displayButton(){
+        var buttonDisplay = document.getElementById("displayButton");
+        buttonDisplay.innerHTML="";
+        var i;
+       
+        var number=Math.floor(Math.random()*50);
+        for (i=1;i<=50;i++){
+            var buttonName=document.createElement("BUTTON");
+            buttonName.setAttribute("id",i);
+            buttonName.addEventListener('click',buttonClick);
+            buttonName.innerHTML= i;
+            buttonName.style.height=20;
+            buttonName.style.width=40;
+            buttonName.style.margin="20px";
+            buttonName.style.padding="15px";
+            buttonDisplay.appendChild(buttonName);
+        }
+        var count=0;
+        function buttonClick(event){ 
+            var buttonName=event.srcElement;
+            var index=event.srcElement.id;  
+            
+            if(count<5){         
+            if(index>number)  {
+                buttonName.style.backgroundColor="green";
+                buttonName.disabled=true;
+                count++;
+            }
+            if(index<number)  {
+                buttonName.style.backgroundColor="red";
+                buttonName.disabled=true;
+                count++;
+            } 
+            if(index==number)  {
+                document.getElementById("correct").innerHTML="Correct Button"
+                buttonName.style.backgroundColor="blue";
+                count++;
+                // $(':buttonName').prop('disabled', true); 
+                // document.getElementById("correct").disabled=true;
+                disableButton();
+            }
+            }else{
+                // $(':buttonName').prop('disabled', true); 
+                disableButton();
+                document.getElementById("correct").innerHTML="Game Over"
+
+            }
+           
+            console.log(number); 
+        }}
+              
+        function disableButton(){
+            for(var i=1;i<50;i++){
+                document.getElementById(i).disabled=true;
+            }
+        }
+        function refreshPage(){
+            window.location.reload();
+        }
+    
+    </script>
+</body>
+</html>

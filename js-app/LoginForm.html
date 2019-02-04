@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+</head>
+<body>
+    <form name="formValidate" action="authenticate.jsp" method="POST">
+        UserName:<input type="text" name="username" id="1"><br><br>
+        Password:<input type="password" name="password" id="2"><br><br>
+        <input type="submit" value="Submit" onclick="return validateForm()">
+        <span style="color:red"id="alert"></span>
+    </form> 
+    <script>
+        function validateForm() {
+            var x = document.forms["formValidate"]["1"].value;
+            var y = document.forms["formValidate"]["2"].value;
+            if (x == "") {
+                document.getElementById("alert").innerHTML="*please enter USERNAME";
+                return false;
+            }
+            if (y == ""){
+                document.getElementById("alert").innerHTML="*please enter password";
+                return false;
+            }          
+        } 
+    </script>   
+</body>
+</html>

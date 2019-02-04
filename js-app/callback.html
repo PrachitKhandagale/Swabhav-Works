@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">        
+</head>
+<body>
+    <input type="button" value="Hello" id="mybutton">
+    <script>
+        function fnCubeEven(no,fn){
+            if(no%2==0){
+                fn("Success:"+(no*no*no));
+            }
+            else{
+                fn("Error:Not Even");
+            }
+        }
+        function handeResult(r){
+            console.log("result is:"+r);
+        }
+        fnCubeEven(10,handeResult);
+        fnCubeEven(25,handeResult);
+        fnCubeEven(20,function(r){
+            console.log("Inside anonymous function");
+            console.log(r);
+        });
+        function fnOne(){
+            console.log("Hello");
+        }
+        document.getElementById("mybutton").addEventListener("click",fnOne);
+        document.getElementById("mybutton").addEventListener("click",function(){
+            console.log("second");
+        });
+       setTimeout(function(){
+           console.log("After 3 seconds");
+       },3000);
+       var foo="Success";
+       function something(){
+           handeResult;
+       }
+       setTimeout(function(){
+           handeResult(foo);
+       },4000);
+       setTimeout(something,4000);
+    </script>
+    
+</body>
+</html>
