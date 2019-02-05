@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <label>Enter The Name</label>
+        <input type="text" id="Task" placeholder="Add Task">
+        <input type="button" value="Add" name="Add" id="submit">
+        <span style ="color: red"id="alert"></span>
+    </div>
+    <p>
+        <ul id="list">
+        </ul>
+    </p>
+    <script>
+        var input = document.getElementById("submit");
+        var count = 0;
+        var car = [];
+        input.addEventListener("click",Add);
+        function Add(){
+            var name = document.getElementById("Task").value;
+            if(validate(name)){
+                car[count] = name;
+                count = count +1;
+                store(name);
+                console.log(car);
+            }
+        }
+        function store(name){
+            var data = retrive();
+            for (var i = 0 ; i<car.length;i++){
+                data.push(car[i]);
+            }
+            var local = JSON.stringify(data);
+            localStorage["task"] = local;
+            if(count == 0){
+                for (var i = 0 ; i<data.length;i++){
+                    display(data[i]);
+                }
+            }else{
+                display(name);
+            }
+        }
+        function display(name){
+            var ul = document.getElementById("list");
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode(""+name));
+            ul.appendChild(li);
+        }
+        function validate(name){
+            if(name!=""){
+                document.getElementById("Task").value="";
+                document.getElementById("alert").innerHTML="";
+                return true;
+            }else{
+                document.getElementById("alert").innerHTML="*please enter text";
+                return false;
+            }
+        }
+        function retrive(){
+            var retrive ;
+               retrive = JSON.parse(localStorage.getItem("task"));
+            return retrive;
+        }
+        //store();
+    </script>
+</body>
+</html>

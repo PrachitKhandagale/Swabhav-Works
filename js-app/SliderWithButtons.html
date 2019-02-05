@@ -1,7 +1,8 @@
 <html>
+
 <body>
     <div>
-        <input type="range" id="slide" min="1" max="100" value="50" onchange="displayButtons()">
+        <input type="range" id="slide" min="1" max="100" value="50">
     </div>
     <div>
         <p id="slideDataDisplay">
@@ -11,33 +12,41 @@
         <p id="messageDisplay">
         </p>
     </div>
-    <div id="displayButton">    
-    </div>   
+    <div id="displayButton">
+    </div>
     <script>
-        function displayButtons(){
-        var slideDataNumber = document.getElementById("slide").value;
-        console.log(slideDataNumber);
-        document.getElementById("slideDataDisplay").innerHTML="Current position: "+slideDataNumber;
-        document.getElementById("messageDisplay").innerHTML="";
-        var buttonDisplay = document.getElementById("displayButton");
-        buttonDisplay.innerHTML="";
-        var i;
-        for (i=1;i<=slideDataNumber;i++){
-            var buttonName=document.createElement("BUTTON");
-            buttonName.setAttribute("id",i);
-            buttonName.addEventListener('click',buttonClick);
-            buttonName.innerHTML= i;
-            buttonName.style.height=20;
-            buttonName.style.width=40;
-            buttonName.style.margin=3;
-            buttonDisplay.appendChild(buttonName); 
-            }
-        }
-            function buttonClick(event){ 
-            var index=event.srcElement.id;
-            console.log(index);
-            document.querySelector("#messageDisplay").innerHTML="Button "+index+" Clicked";      
-        }
-</script>
+        (
+            function () {
+                var button = document.getElementById("slide");
+                button.addEventListener("change", displayButtons);
+
+
+                function displayButtons() {
+                    var slideDataNumber = document.getElementById("slide").value;
+                    console.log(slideDataNumber);
+                    document.getElementById("slideDataDisplay").innerHTML = "Current position: " + slideDataNumber;
+                    document.getElementById("messageDisplay").innerHTML = "";
+                    var buttonDisplay = document.getElementById("displayButton");
+                    buttonDisplay.innerHTML = "";
+                    var i;
+                    for (i = 1; i <= slideDataNumber; i++) {
+                        var buttonName = document.createElement("BUTTON");
+                        buttonName.setAttribute("id", i);
+                        buttonName.addEventListener('click', buttonClick);
+                        buttonName.innerHTML = i;
+                        buttonName.style.height = 20;
+                        buttonName.style.width = 40;
+                        buttonName.style.margin = 3;
+                        buttonDisplay.appendChild(buttonName);
+                    }
+                }
+                function buttonClick(event) {
+                    var index = event.srcElement.id;
+                    console.log(index);
+                    document.querySelector("#messageDisplay").innerHTML = "Button " + index + " Clicked";
+                }
+            })();
+    </script>
 </body>
+
 </html>

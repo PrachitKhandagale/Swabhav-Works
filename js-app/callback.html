@@ -9,6 +9,8 @@
 <body>
     <input type="button" value="Hello" id="mybutton">
     <script>
+        (
+            function(){
         function fnCubeEven(no,fn){
             if(no%2==0){
                 fn("Success:"+(no*no*no));
@@ -44,6 +46,7 @@
            handeResult(foo);
        },4000);
        setTimeout(something,4000);
+    })();
     </script>
     
 </body>

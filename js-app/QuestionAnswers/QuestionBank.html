@@ -29,12 +29,10 @@
             //document.write(`<div id="q${i}" class="q">`);
             document.write("<div id='q"+i+"' class='q'>");
             
-            document.write("<p>"+(i+1)+" "+ questions[i].question+"</p>");
-            //document.write(`<p>${i + 1}. ${questions[i].question}</p>`);
+            document.write(`<p>${i + 1}. ${questions[i].question}</p>`);
             for (var j = 0; j < 4; j++) {
 
-                document.write("<input type='radio' name='option"+i+"' value='"+questions[i].option[j]+"' onclick='valueChanged(this)' />"+questions[i].option[j]+"<br>");
-                //document.write(`<input type="radio" name="option${i}" value="${questions[i].option[j]}" onclick="valueChanged(this)" />${questions[i].option[j]}<br>`);
+                document.write(`<input type="radio" name="option${i}" value="${questions[i].option[j]}" onclick="valueChanged(this)" />${questions[i].option[j]}<br>`);
             }
             document.write("</div>");
         }
@@ -45,14 +43,11 @@
             if (selectedValue == questions[currentQuestionNumber].answer)
                 score++;
             if (currentQuestionNumber < questions.length - 1) {
-                //document.getElementById('"q'+currentQuestionNumber+'"').style.display = 'none';
                 document.getElementById(`q${currentQuestionNumber}`).style.display = 'none';
                 currentQuestionNumber++;
-                //document.getElementById("'q"+currentQuestionNumber+"'").style.display = 'block';
                 document.getElementById(`q${currentQuestionNumber}`).style.display = 'block';
             } else {
-                document.getElementById("finalResult").innerHTML = "You answered "+score+"questions correctly.";
-                //document.getElementById("finalResult").innerHTML = `You answered ${score} questions correctly.`;
+                document.getElementById("finalResult").innerHTML = `You answered ${score} questions correctly.`;
                 document.getElementById("button").disabled = true;
                 displayChart(score);
             }
@@ -84,10 +79,10 @@
     </script>
     <br>
 
-    <input type="submit" value="Next" id="button" onclick="showNextQuestion()"/>
+    <input type="submit" value="Next" id="button" onclick="showNextQuestion()">
     <span id="finalResult"></span><br><br>
 
-    <canvas id="canvas" width="200" height="200"/>
+    <canvas id="canvas" width="200" height="200" />
 
 </body>
 
