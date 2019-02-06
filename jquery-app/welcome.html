@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="jquery-3.3.1.js"></script>
+</head>
+
+<body>
+    <div id="header"></div>
+    <input type="button" value="Hello" id="button">
+    <input type="button" id="btnDummy" Value=" Play with me "/>
+
+    <script>
+        $('#header').html('<h1>Weelcome to Jquery</h1>');
+        $('#button').click(function () {
+            console.log("Hello");
+            $('#header').html('<h2>Hii Welcome</h2>');
+        });
+
+        $(document).ready(function () {
+            $("#btnDummy").click(function (e) {
+                alert("click!");
+            }).mouseover(function (e) {
+                alert("mouse over!")
+            }).mouseout(function (e) {
+                alert("mouse out!")
+            });
+        });
+
+    </script>
+</body>
+
+</html>
