@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="jquery-3.3.1.js"></script>
+    <script src="jquery.csv.js"></script>
+</head>
+
+<body>
+    <div class="col-md-8">
+
+        <input type="submit" id="submit" value="Click" />
+    </div>
+    <script>
+        $('#submit').on('click', function () {
+            $.ajax({
+                url: ' https://swabhav-tech.firebaseapp.com/emp.txt ',
+                type: 'get',
+                success: function (data) {
+                    /*
+                                        for (var i = 0; i < data.length; i++) {
+                                            var Html = "<tr> < td > " + data[i].item + "</td><td>" + data[i].Quantity + "</td></tr > ";
+                                            $('#tbody').append(Html);
+                    
+                                        }
+                                        */
+                    console.log("hello");
+                    // console.log(data);
+                    var result = $.csv.toArrays(data);
+                    console.log(result);
+                    document.write("<table>");
+                    document.write(`<th>EmployeeId</th>
+                    <th>Employee name</th> <th>Employee designation</th> <th>Manager id</th><th> Date of joining</th> 
+                    <th>Salary</th> <th>Commission</th> <th>Department number</th>
+                                    `);
+                    for (var i = 0; i < result.length; i++) {
+                        document.write("<tr>");
+                        var row = result[i];
+                        for (var j = 0; j < row.length; j++) {
+                            document.write(`<td>${row[j]}</td>`);
+                        }
+                        document.write("</tr>");
+                    }
+                    document.write("</table>");
+                },
+                error: function (error) {
+                    console.log("error occured");
+                    console.log(error);
+                }
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    <script>
+
+        "use strict";
+        var dataService = function () {
+            var service = {};
+            service.getData = function () {
+                return Math.random() * 10;
+            }
+            service.getDataAsyncFalse = function (cb) {
+                var r = Math.random() * 100;
+                if (r > 50) {
+                    cb("Success:" + r);
+                }
+                else {
+                    cb("Failed:" + r);
+                }
+            }
+            service.getDataAsyncTrue = function (cb) {
+                setTimeout(function () {
+                    var r = Math.random() * 1000;
+                    if (r > 500) {
+                        cb("SuccessFull:" + r);
+                    }
+                    else {
+                        cb("Error:" + r);
+                    }
+                })
+            }
+            return service;
+        }();
+
+        var r = dataService.getData();
+        console.log(r);
+        dataService.getDataAsyncFalse(function (r) {
+            console.log("Result in False Asynchronus:" + r);
+        });
+        dataService.getDataAsyncTrue(function (r) {
+            console.log("Result in True Asynchronus:" + r);
+        });
+        console.log("End of Script");
+    </script>
+
+</body>
+
+</html>

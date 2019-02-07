@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    <script>
+        
+            
+                var empService = function () {
+                    console.log("service created");
+                    var obj = {};
+                    var _firstName, _lastName;
+                    obj.setFirstName = function (fname) {
+                        if (fname.length > 0) {
+                            _firstName = fname;
+                        }
+                    }
+                    obj.setLastName = function (lname) {
+                        if (lname.length > 0) {
+                            _lastName = lname;
+                        }
+                    }
+                    obj.getFullName = function () {
+                        return _firstName + " " + _lastName;
+                    }
+                    return obj;
+                }();
+                //var obj = empService();
+                empService.setFirstName("Rahul");
+                empService.setLastName("Dravid");
+                console.log(empService.getFullName());
+                console.log(empService);
+            
+    </script>
+    
+
+    <script>
+        var swabhavTech=function(){
+            var obj={};
+            obj.cubeOfEven=function(number){
+                if(number%2==0){
+                    return number*number*number;
+                }
+                else{
+                    throw "Not Even Number";
+                }
+            }
+            return obj;
+        }();
+        
+        console.log(swabhavTech.cubeOfEven(4));
+        console.log(swabhavTech);
+    </script>
+
+</body>
+
+</html>
