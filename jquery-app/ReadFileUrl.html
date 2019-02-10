@@ -22,13 +22,6 @@
                 url: ' https://swabhav-tech.firebaseapp.com/emp.txt ',
                 type: 'get',
                 success: function (data) {
-                    /*
-                                        for (var i = 0; i < data.length; i++) {
-                                            var Html = "<tr> < td > " + data[i].item + "</td><td>" + data[i].Quantity + "</td></tr > ";
-                                            $('#tbody').append(Html);
-                    
-                                        }
-                                        */
                     console.log("hello");
                     // console.log(data);
                     var result = $.csv.toArrays(data);
@@ -51,6 +44,12 @@
                 error: function (error) {
                     console.log("error occured");
                     console.log(error);
+                    // error:function(){
+                    // $('#loading').show();
+                    // setTimeout(function(){
+                    //     $('#loading').hide();
+                    //     $('#error').html("Try Agin Later")
+                    // },2000)
                 }
             });
         });

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Employee</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <script src="student-js/jquery-3.3.1.js"></script>
+    <script src="jquery.csv.js"></script>
+    <script src="js/bootstrap.js"></script>
+</head>
+
+<body class="container">
+    <div>
+
+        <input type="submit" id="submit" value="Click" class="btn btn-info" /><br>
+
+    </div><br>
+    <div id="table">
+        <img src="35.gif" alt="show1" id="show"/>
+
+    </div>
+    <p id="showerror"></p>
+
+
+    <script>
+        $('#submit').on('click', function () {
+
+            $('#show').show();
+            $.ajax({
+                url: 'https://swabhav-tech.firebaseapp.com/emp.txt',
+                type: 'get',
+                success: function (data) {
+                    setTimeout(function () {
+
+                        $('#show').hide();
+                        tableCreation(data);
+                    }, 2000)
+                }, error:function(){
+                     $('#show').show();
+                     setTimeout(function(){
+                         $('#show').hide();
+                         $('#showerror').html("Error in network")
+                     },2000)
+                }
+            })
+        })
+
+        function tableCreation(data) {
+            var result = $.csv.toArrays(data);
+            var tableData;
+            tableData = "<table class='table table-bordered'>";
+            tableData += "<th>EmployeeId</th><th>Employee name</th> <th>Employee designation</th> <th>Manager id</th><th> Date of joining</th><th>Salary</th> <th>Commission</th> <th>Department number</th>";
+            for (var i = 0; i < result.length; i++) {
+                tableData += '<tr>';
+                var row = result[i];
+                for (var j = 0; j < row.length; j++) {
+
+                    tableData += `<td>${row[j]}</td>`;
+                }
+                tableData += "</tr>";
+            }
+            tableData += "</table>";
+            tableData = tableData.replace(/\'/g, "");
+            $("#table").html(tableData);
+            console.log(tableData);
+
+        }
+        $('#show').hide();
+    </script>
+
+</body>
+
+</html>

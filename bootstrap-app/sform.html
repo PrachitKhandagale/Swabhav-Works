@@ -1,0 +1,174 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Student App</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="student-js/jquery-3.3.1.js"></script>
+    <script src="js/bootstrap.js"> </script>
+</head>
+
+<body class="container">
+    <h1 class="jumbotron">
+        <div class="text-center">Student Page</div>
+    </h1>
+    <form data-toggle="validator" id="form">
+        <div class="form-group">
+            <label for="exampleInputNumber">Roll Number</label>
+            <input type="number" min="0" max="999" class="form-control" id="inputRollNumber"
+                placeholder="Enter Roll Number" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName">Name</label>
+            <input type="name" class="form-control" id="inputName" placeholder="Enter Name" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputAge">Age</label>
+            <input type="number" min="0" max="100" class="form-control" id="inputAge" placeholder="Enter Age in years"
+                required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail">Email Id</label>
+            <input type="email" class="form-control" id="inputEmail" placeholder="Enter Email Id" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputDate">Date</label>
+            <input type="date" class="form-control" id="inputDate" placeholder="Enter Date In dd/mm/yyyy" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputGender">Gender</label>
+            <select class="form-control" id="inputGender" required>
+                <option value="True">Male</option>
+                <option value="False">Female</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" id="submit">Add</button>
+        </div>
+        
+    </form>
+    <button id="button" class="btn btn-primary">Display</button>
+    <span id="error" style="color:red"></span>
+    <br>
+    <br>
+    <div id="printData"></div>
+    <div id="table"></div>
+    <script>
+        $('#submit').on("click",
+            function () {
+
+               // $("#printData").html(`<div style="text-align:center"><img src="35.gif" alt="show1"></img></div>`);
+                $.post("http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/",
+                    {
+                        "rollNo": $('#inputRollNumber').val(),
+                        "name": $('#inputName').val(),
+                        "age": $('#inputAge').val(),
+                        "email": $('#inputEmail').val(),
+                        "date": $('#inputDate').val(),
+                        "isMale": $('#inputGender').val(),
+
+                    },
+                    function (data, status) {
+                        alert("Data: " + data + "\nStatus: " + status);
+                    });
+            });
+        $('#button').on('click', function () {
+            display();
+        })
+
+        function getData(data) {
+            var result = data;
+            var tableDataAppend;
+            tableDataAppend = "<table class='table table-striped'>";
+            tableDataAppend += "<th>Roll Number</th><th>Student name</th> <th>Age </th> <th>Date</th>";
+            for (var i = 0; i < result.length; i++) {
+                var rollNumber = result[i].rollNo;
+                var name = result[i].name;
+                var age = result[i].age;
+                var date = result[i].date;
+                tableDataAppend += "<tr value=" + rollNumber + ">";
+                tableDataAppend += "<td>" + rollNumber + "</td>";
+                tableDataAppend += "<td>" + name + "</td>";
+                tableDataAppend += "<td>" + age + "</td>";
+                tableDataAppend += "<td>" + date + "</td>";
+                tableDataAppend += "<td><button type='button' id='delete' class='btn btn-default'>Delete</button></td>"
+                tableDataAppend += "<td><button type='button' id='edit' class='btn btn-primary'>Edit</button><span id='ok' class='glyphicon glyphicon-ok btn disabled' aria-hidden='true'></span><span id='remove' class='glyphicon glyphicon-remove btn disabled' aria-hidden='true'></span></td>"
+                tableDataAppend += "</tr>";
+            }
+            tableDataAppend += "</table>";
+
+            $("#table").html(tableDataAppend);
+        }
+
+        $(document).on('click', '#delete', function () {
+            var answer = confirm("You want to delete data?");
+            if (answer) {
+                var number = $(this).parent().siblings(":first").text();
+                console.log(number);
+                var tableDataAppend ='http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/' + number;
+                $.ajax({
+                    url: tableDataAppend,
+                    type: 'DELETE',
+                    success: function (result) {
+
+                        alert(result + " Data removed from table")
+                        display();
+                    }, error: function () {
+                        alert("Error")
+                    }
+                });
+                return;
+            }
+            else {
+                return;
+            }
+
+        });
+        function display() {
+            $.ajax({
+                url: 'http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/',
+                type: 'get',
+                success: function (data) {
+                    getData(data);
+                }, error: function () {
+                    $('#error').html("Error occured ")
+                }
+            })
+        }
+
+        $(document).on('click', '#edit', function () {
+            var number = $(this).parent().siblings(":first").text();
+            //console.log(number);
+            var tableDataAppend = 'http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/'+number;
+            $.ajax({
+                url: tableDataAppend,
+                type: 'get',
+                success: function (result) {
+                    $('#inputRollNumber').val(result.rollNo);
+                    $('#inputName').val(result.name);
+                    $('#inputAge').val(result.age);
+                    $('#inputEmail').val(result.email);
+                    $('#inputDate').val(result.date);
+                    if(result.isMale){
+                        $('#inputGender').val("Male");
+                        return;
+                    }else{
+                        $('#inputGender').val("Female");
+                        return;
+                    }
+                    
+                    //alert(result + "Data edited in table");
+                    // display();
+                }, error: function () {
+                    alert("Error in editing");
+                }
+            });
+        });
+
+    </script>
+    </script>
+</body>
+
+</html>

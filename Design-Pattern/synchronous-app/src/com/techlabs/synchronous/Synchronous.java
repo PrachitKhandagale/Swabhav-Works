@@ -1,31 +1,32 @@
-package com.techlabs.asynchronous;
+package com.techlabs.synchronous;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class Asynchronous extends JFrame {
+public class Synchronous extends JFrame {
 
 	private Container container;
-	private JButton button1, button2;
+	private JButton hello, button2;
 
-	public Asynchronous() {
+	public Synchronous() {
 		init();
 	}
 
 	public void init() {
 		container = getContentPane();
-		button1 = new JButton("Hello");
+		hello = new JButton("Hello");
 		button2 = new JButton("Display");
 
-		button1.setBounds(50, 100, 100, 30);
+		hello.setBounds(50, 100, 100, 30);
 		button2.setBounds(200, 100, 100, 30);
 
-		container.add(button1);
+		container.add(hello);
 		container.add(button2);
 
 		ActionListener actionListener = new ActionListener() {
@@ -33,7 +34,7 @@ public class Asynchronous extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFrame frame = new JFrame();
-				JOptionPane.showMessageDialog(frame, "Hello Click");
+				JOptionPane.showMessageDialog(frame, "Hello");
 			}
 		};
 
@@ -41,12 +42,14 @@ public class Asynchronous extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Thread t1 = new Thread(new PrinterThread());
-				t1.start();
+				Date date = new Date();
+				while (true) {
+					System.out.println(date);
+				}
 			}
 		};
 
-		button1.addActionListener(actionListener);
+		hello.addActionListener(actionListener);
 		button2.addActionListener(actionListener2);
 
 		setLayout(null);
@@ -55,6 +58,6 @@ public class Asynchronous extends JFrame {
 	}
 
 	public static void main(String[] agrs) {
-		Asynchronous synchronous = new Asynchronous();
+		Synchronous synchronous = new Synchronous();
 	}
 }
