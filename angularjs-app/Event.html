@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="student">
+
+<head>
+
+    <script src="angular.js"></script>
+</head>
+
+<body>
+    <section ng-controller="studentController">
+        <button ng-click="display()">Show</button>
+        <div ng-hide="data">
+               <p> {{student.name}} </p>
+               <p>{{student.address}}</p>
+               <p>{{student.cgpa}}</p>
+               <img ng-src="{{student.picture}}" width="150" height="150"/>
+        </div>
+    </section>
+    <script>
+        angular.module('student', [])
+            .controller('studentController', function ($scope) {
+                console.log("hii")
+                $scope.data = true;
+                $scope.display = function () {
+                    $scope.data = false;
+                    $scope.student = {
+                        name: "Prachit",
+                        address: "Wadala",
+                        cgpa: 6.5,
+                        picture: "nature2.jpg"
+                    }
+                }
+            });
+    </script>
+</body>
+
+</html>

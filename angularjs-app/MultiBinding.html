@@ -1,0 +1,26 @@
+<html ng-app="swabhavtechlabs">
+<head>
+        <title>Multi Binding</title>
+        <script src="angular.js"></script>
+</head>
+<body  ng-controller="bindcontroller">
+    <div>  
+                Enter Text    : <input type="text" ng-model="message"/><br><br>
+                Font Size        : <input type="number" ng-model="size"/><br><br>
+                Background Color : 
+                <select ng-model="bgColor" ng-options="color for color in colorsList"></select><br><br>
+                Text Color       : 
+                <select ng-model="textColor" ng-options="text for text in colorsList"></select><br>
+                <br><br>
+    </div>
+
+    <textarea cols="40" rows="20" ng-style="{'background-color':bgColor , 'color':textColor, 'font-size':size+'px'}">{{message}}</textarea>
+
+    <script>
+        angular.module("swabhavtechlabs",[])
+                .controller("bindcontroller",function($scope){
+                    $scope.colorsList = ['red','blue','green','yellow'];
+                })
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html ng-app="swabhavtechlab">
+
+<head>
+    <script src="angular.js"></script>
+</head>
+
+<body ng-controller="taskController">
+
+    <h2>My Todo List</h2>
+
+    <form ng-submit="taskAdd()">
+        <input type="text" ng-model="taskInput" size="50" placeholder="Add Task">
+        <input type="submit" value="Add New">
+    </form>
+
+    <br>
+    <ul>
+        <li ng-repeat="task in taskList">
+            <span>{{task}}</span>
+
+        </li>
+    </ul>
+
+
+    <script>
+        var app = angular.module('swabhavtechlab', []);
+        app.controller('taskController', ['$scope', function ($scope) {
+            $scope.taskList = [];
+
+            $scope.taskAdd = function () {
+                if($scope.taskInput != "" && $scope.taskInput != undefined)
+                    $scope.taskList.unshift($scope.taskInput);
+
+                $scope.taskInput = "";
+            };
+        }]);
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html ng-app="swabhavtechlab">
+
+<head>
+
+    <script src="angular.js"></script>
+</head>
+
+<body>
+    <section ng-controller="taskController">
+        Enter Task:<input type="text" placeholder="something">
+        <input type="button" value="Add">
+    </section>
+
+    <script>
+        angular.module("swabhavtechlab", [])
+            .controller("taskController", ['$scope', function ($scope) {
+
+
+            }]);
+    </script>
+
+</body>
+
+</html> -->

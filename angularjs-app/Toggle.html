@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="showhide">
+
+<head>
+    <script src="angular.js"></script>
+</head>
+
+<body>
+    <section ng-controller="gifController">
+        <button ng-click="display()">Show</button>
+        <div ng-hide="data">
+            <img ng-src="{{image.gif}}" />
+        </div>
+    </section>
+    <script>
+        angular.module('showhide', [])
+            .controller('gifController', function ($scope) {
+                $scope.data = true;
+                $scope.display = function () {
+                    $scope.image = {
+                        gif: "35.gif"
+                    }
+                    if ($scope.data == true) {
+                        $scope.data = false;
+                    }
+                    else {
+                        $scope.data = true;
+                    }
+                }
+            })
+    </script>
+</body>
+
+</html>

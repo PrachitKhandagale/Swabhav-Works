@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="swabhavtechlab">
+
+<head>
+
+    <script src="angular.js"></script>
+</head>
+
+<body>
+    <section ng-controller="studentController">
+
+        <div>
+            Id:<input ng-model="student.id">
+            <h1>{{student.id}}</h1>
+            Name: <input ng-model="student.name">
+            <h1>{{student.name}}</h1>
+            Salary:<input ng-model="student.salary">
+            <h1>{{student.salary}}</h1>
+        </div>
+
+        <div>
+            <h1>One Time</h1>
+            <h1>{{::student.id}}</h1>
+            <h1>{{::student.name}}</h1>
+            <h1>{{::student.salary}}</h1>
+        </div>
+
+    </section>
+    <script>
+        angular.module('swabhavtechlab', [])
+            .controller('studentController', ['$scope', function ($scope) {
+                $scope.student = {
+                    name: "Prachit",
+                    id: "101",
+                    salary: "2000"
+                }
+
+            }]);
+    </script>
+</body>
+
+</html>

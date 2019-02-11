@@ -5,7 +5,7 @@ $(document).on('click', '#displayButton', function () {
         url: 'http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/',
         type: 'get',
         success: function (data) {
-            data.sort(function(a, b){return a.rollNo-b.rollNo});
+            //data.sort(function(a, b){return a.rollNo-b.rollNo});
             getdata(data);
 
         }, error: function () {

@@ -16,7 +16,7 @@ public class EmpTest {
 	public static void main(String []args) throws Exception {
 		Set<Employee> empSet=readFile();
 		Employee president = getEmpStructure(empSet);
-		president.ls();
+		president.display();
 		System.out.println("Execution complete");
 	}
 	

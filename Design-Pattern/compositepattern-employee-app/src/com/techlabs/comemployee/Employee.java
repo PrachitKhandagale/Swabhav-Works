@@ -10,12 +10,12 @@ public class Employee {
 	private List<Employee> teamMembers = new ArrayList<Employee>();
 	private static String compositeBuilder = " ";
 
-	public void ls() {
+	public void display() {
 		System.out.println(compositeBuilder + empName);
 		String len = compositeBuilder;
 		compositeBuilder=compositeBuilder +"   ";
 		for (Employee e : teamMembers) {
-			e.ls();
+			e.display();
 		}
 		compositeBuilder = len;
 	}
