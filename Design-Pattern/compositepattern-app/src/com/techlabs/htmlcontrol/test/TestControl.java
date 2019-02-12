@@ -19,5 +19,4 @@ public class TestControl {
 
 		htmlRoot.displayDom();
 	}
-
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="moment.js"></script>
+</head>
+
+<body>
+    <script>
+        function Employee(firstName,lastname){
+            this.firstName=firstName;
+            this.lastname=lastname;
+        }
+        console.log(Employee);
+        Employee.prototype.getFullName=function(){
+            return this.firstName+" "+this.lastname;
+        }
+        console.log(Employee);
+
+        let e1=new Employee("Prachit","Khandagale");
+        console.log(e1);
+        console.log(e1.__proto__==Employee.prototype);
+        console.log(e1.getFullName());
+        let e2=new Employee("Sachin","Tendulkar");
+        console.log(e2.getFullName());
+        console.log(e1.__proto__==e2.__proto__);
+
+    </script>
+
+</body>
+
+</html>

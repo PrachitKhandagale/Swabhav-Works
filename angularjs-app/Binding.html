@@ -10,12 +10,20 @@
     <section ng-controller="studentController">
 
         <div>
+            <h1>One Way</h1>
             Id:<input ng-model="student.id">
             <h1>{{student.id}}</h1>
             Name: <input ng-model="student.name">
             <h1>{{student.name}}</h1>
             Salary:<input ng-model="student.salary">
             <h1>{{student.salary}}</h1>
+        </div>
+        <div>
+            <h1>Two Way</h1>
+            Id:<input ng-model="student.id">
+            Name: <input ng-model="student.name">
+            Salary:<input ng-model="student.salary">
+
         </div>
 
         <div>

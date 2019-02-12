@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="moment.js"></script>
+</head>
+
+<body>
+    <script>
+        let dataservice=function(){
+            let service={};
+            service.cubeOfEven=function(number){
+                return new Promise(function(resolve,reject){
+                    if(number%2==0){
+                        resolve(number*number*number);
+                    }
+                    else{
+                        reject("Error:no even number");
+                    }
+                })
+            }
+            return service;
+        }();
+        dataservice.cubeOfEven(2)
+        .then((r)=>{
+            console.log(r);
+        })
+        .catch((e)=>{
+            console.log(e);
+        })
+        
+        console.log("End of Script");
+    </script>
+
+</body>
+
+</html>

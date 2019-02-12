@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="moment.js"></script>
+</head>
+
+<body>
+    <script>
+        let processData = function (number, cb) {
+            let r = Math.random() * number;
+            if (r > 5) {
+                cb(r * 5);
+            }
+            else {
+                cb(r);
+            }
+        }
+        // processData(100,function(r){
+        //     console.log(r);
+        // });
+        processData(100, (r) => console.log(r));
+        setTimeout(() => {
+            // console.log("firsr line");
+            // console.log("agter 3 seconds");
+        }, 3000);
+    </script>
+
+    <script>
+        function Employee(n) {
+            this.name = n;
+            this.display1 = function () {
+                setTimeout(function () {
+                    console.log(this.name + " After 3 seconds without arrow function");
+                }, 3000);
+            }
+
+            this.display2 = function () {
+                setTimeout(() => {
+                    console.log(this.name + " After 4 seconds with arrow function");
+                }, 4000);
+            }
+        }
+        let e1 = new Employee("Prachit");
+        e1.display1();
+        e1.display2();
+
+        let e2=new Employee("Vinod");
+        e2.display1();
+        e2.display2();
+        console.log(e1);
+        console.log(e2);
+        console.log("End of Program");
+    </script>
+</body>
+
+</html>

@@ -10,16 +10,20 @@
                 Background Color : 
                 <select ng-model="bgColor" ng-options="color for color in colorsList"></select><br><br>
                 Text Color       : 
-                <select ng-model="textColor" ng-options="text for text in colorsList"></select><br>
+                <select ng-model="textColor" ng-options="text for text in colorsList"></select><br><br>
+                Font Family
+                <select ng-model="font1" ng-options="text for text in font"></select><br>
+               
                 <br><br>
     </div>
 
-    <textarea cols="40" rows="20" ng-style="{'background-color':bgColor , 'color':textColor, 'font-size':size+'px'}">{{message}}</textarea>
+    <textarea cols="40" rows="20" ng-style="{'background-color':bgColor , 'color':textColor, 'font-size':size+'px','font-family':font1}">{{message}}</textarea>
 
     <script>
         angular.module("swabhavtechlabs",[])
                 .controller("bindcontroller",function($scope){
                     $scope.colorsList = ['red','blue','green','yellow'];
+                    $scope.font=['times','calibari'];
                 })
     </script>
 </body>
