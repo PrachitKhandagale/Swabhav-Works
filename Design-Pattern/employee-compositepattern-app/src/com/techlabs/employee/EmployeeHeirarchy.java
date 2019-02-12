@@ -1,61 +1,62 @@
 package com.techlabs.employee;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class EmployeeHeirarchy {
-	private Employee rootEmployee;
-	private List<Employee> managerList;
+	private Employee rootEmployee = null;
+	private List<Employee> reporteeList = new ArrayList<Employee>();
+	private List<Employee> mangerList = new ArrayList<Employee>();
 	private Set<Employee> empSet = new TreeSet<Employee>();
 
 	public EmployeeHeirarchy(Set<Employee> empSet) {
 		this.empSet = empSet;
+		findCEO();
+		getManger();
+		getRepotee();
 	}
 
-	public Employee getCEO() {
-		rootEmployee = null;
+	public void findCEO() {
 		for (Employee emp : empSet) {
 			if (emp.getManagerId() == null) {
 				rootEmployee = emp;
+			} else {
+				reporteeList.add(emp);
 			}
-//			} else {
-//				Employee mgr = getManager(emp,empSet);
-//				mgr.getEmpList().add(emp);
-//			}
 		}
+	}
+
+	public void getManger() {
+		for (Employee emp : reporteeList) {
+			if (rootEmployee.getEmpId().equals(emp.getManagerId())) {
+				rootEmployee.addReportee(emp);
+				mangerList.add(emp);
+			}
+		}
+	}
+
+	public void getRepotee() {
+		for (Employee manger : mangerList) {
+			for (Employee employee : reporteeList) {
+				if (manger.getEmpId().equals(employee.getManagerId())) {
+					manger.addReportee(employee);
+				}
+			}
+		}
+	}
+
+	public Employee getRootEmployee() {
 		return rootEmployee;
 	}
-	
-	public void getManager() {
-		for(Employee emp:empSet) {
-			if(rootEmployee.getEmpId()==emp.getManagerId()) {
-				rootEmployee.addReportee(emp);
-				managerList.add(emp);
-			}
-		}
-			
+
+	public List<Employee> getReporteeList() {
+		return reporteeList;
 	}
 
-	public List<Employee> getManagerList() {
-		return managerList;
+	public List<Employee> getMangerList() {
+		return mangerList;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	public Employee getManager(Employee emp,Set<Employee> empList) {
-//		for(Employee e:empList)
-//			if(emp.getManagerId().equals(e.getEmpId()))
-//				return e;
-//		return null;
-//	}
 }

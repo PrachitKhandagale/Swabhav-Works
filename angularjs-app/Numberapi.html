@@ -1,0 +1,33 @@
+<html ng-app="swabhavtechlab">
+<script src="angular.js"></script>
+
+<body>
+
+    <div ng-controller="apicontroller">
+
+        <input ng-model="number">
+        <input type="submit" ng-click="submitForm(number)" value="Search">
+
+        <!-- <p>{{number}}</p> -->
+        <pre>{{ data }}</pre>
+
+        <script>
+            angular.module('swabhavtechlab', [])
+                .controller('apicontroller', function ($scope, $http) {
+                    $scope.number;
+                    $scope.submitForm = function (number) {
+                        $http({
+                            method: "GET",
+                            url: "http://numbersapi.com/" + number
+                        }).then(function mySuccess(response) {
+                            $scope.data = response.data;
+                        }, function myError(response) {
+                            $scope.data = response.statusText;
+                        });
+                    }
+                });
+        </script>
+
+</body>
+
+</html>

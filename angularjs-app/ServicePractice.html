@@ -1,0 +1,59 @@
+<html ng-app="swabhavtechlab">
+<head>
+    <script src="angular.js"></script>
+</head>
+<body>
+    <section ng-controller="firstController">
+        <div>
+            <p>Enter Number</p>
+            <input type="number" ng-model="evenNum" ng-keypress="showEven($event)"
+                ng-style="{'background-color':result}">
+        </div>
+    </section>
+    <br>
+    <hr>
+    <section ng-controller="secondController">
+        <div>
+            <p>Enter Number</p>
+            <input type="number" ng-model="oddNum" ng-keypress="showOdd($event)"
+                ng-style="{'background-color':result2}">
+        </div>
+    </section>
+    <br>
+    <script>
+        angular.module("swabhavtechlab", [])
+            .factory("mathService", function ($log, $rootScope) {
+                $log.info("Service created");
+                var obj = {};
+                obj.evenNumber = (num) => {
+                    if (num % 2 == 0) {
+                        return "Green";
+                    }
+                    return "Red";
+                }
+                obj.oddNumber = (num) => {
+                    if (num % 2 == 0) {
+                        return "Red";
+                    }
+                    return "Green";
+                }
+                return obj;
+            })
+            .controller("firstController", ($rootScope, $scope, mathService) => {
+                $rootScope.showEven = (event) => {
+                    if (event.keyCode == 13) {
+                        $scope.result = mathService.evenNumber($scope.evenNum);
+                    }
+                }
+            })
+            .controller("secondController", ($rootScope, $scope, mathService) => {
+                $rootScope.showOdd = (event) => {
+                    if (event.keyCode == 13) {
+                        $scope.result2 = mathService.oddNumber($scope.oddNum);
+                    }
+                }
+            })
+    </script>
+</body>
+
+</html>

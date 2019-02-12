@@ -8,6 +8,7 @@ public class Employee implements Comparable<Employee>{
 	private Integer managerId;
 	private String empName;
 	private String designation;
+	private static String compositeBuilder = " ";
 	private List<Employee> empList = new ArrayList<Employee>();
 
 	public Employee(Integer empId, Integer managerId, String empName, String designation) {
@@ -45,6 +46,15 @@ public class Employee implements Comparable<Employee>{
 	public int compareTo(Employee o) {
 		
 		return this.empId-o.empId;
+	}
+	public void display() {
+		System.out.println(compositeBuilder + empName);
+		String len = compositeBuilder;
+		compositeBuilder=compositeBuilder +"   ";
+		for (Employee e : empList) {
+			e.display();
+		}
+		compositeBuilder = len;
 	}
 
 }

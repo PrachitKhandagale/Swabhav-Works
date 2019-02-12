@@ -14,17 +14,14 @@ public class TestEmployee {
 	public static void main(String[] args) throws Exception {
 		FileLoader fileLoader=new FileLoader("dataFile.txt");
 		ArrayList<String> list=fileLoader.loadFile();
-		//System.out.println(list);
 		
 		EmployeeParser employeeParser=new EmployeeParser();
 		Set<Employee> empSet=employeeParser.parse(list);
-		//System.out.println(empSet);
 		
-		EmployeeHeirarchy empHeirarchy=new EmployeeHeirarchy(empSet);
-		System.out.println(empHeirarchy.getCEO().getEmpName());
+		EmployeeHeirarchy employeeHirarchy=new EmployeeHeirarchy(empSet);
+		Employee ceo=employeeHirarchy.getRootEmployee();
+		ceo.display();
 		
-		empHeirarchy.getManager();
-		List<Employee> managerList=empHeirarchy.getManagerList();
 	}
 
 }
