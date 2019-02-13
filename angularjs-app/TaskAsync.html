@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html ng-app="swabhavtechlab">
+
+<head>
+    <script src="angular.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="jquery-3.3.1.js"> </script>
+    <script src="js/bootstrap.js"> </script>
+</head>
+
+<body ng-controller="taskcontroller" class="form-group">
+    <form ng-submit="taskadd(taskInput)" class="form-control-static">
+        Enter Task:<input type="text" ng-model="taskInput" size="50" placeholder="Add Task">
+        <input type="submit" value="Add New" class="btn-primary">
+    </form>
+    <br>
+    <ul>
+        <li ng-repeat="task in tasklist" class="list-group">
+            <span ng-bind="task.description"></span>
+            <span style="color: darkblue">&nbsp;&nbsp;{{task.currentDate|date:'short'}}</span>
+        </li>
+    </ul>
+
+    <script>
+        angular.module("swabhavtechlab", [])
+            .factory('taskservice', function ($log, $q) {
+                var service = {};
+                service.add = function (task) {
+                    return $q(function (resolve, reject) {
+                        if (task != null) {
+                            save(task);
+                            resolve("success");
+                        }
+                        else {
+                            reject("Failure");
+                        }
+                    })
+                }
+                service.get = function () {
+                    return $q(function (resolve, reject) {
+                        var list = retrive();
+                        resolve(list);
+                    })
+                }
+                var save = function (obj) {
+                    var list = retrive();
+                    list.unshift(obj);
+                    localStorage.setItem("tasklist", JSON.stringify(list));
+                }
+                var retrive = function () {
+                    if (localStorage.getItem("tasklist") == null) {
+                        var list = [];
+                        return list;
+                    } else {
+                        var obj = JSON.parse(localStorage.getItem("tasklist"));
+                        return obj;
+                    }
+                }
+                return service;
+            })
+
+            .controller("taskcontroller", ['$scope', 'taskservice', function ($scope, taskservice) {
+                taskservice.get()
+                    .then((r) => {
+                        $scope.tasklist = r;
+                    }, (r) => {
+                        $scope.tasklist = r;
+                    })
+                $scope.taskadd = function () {
+                    var task = {
+                        description: $scope.taskInput,
+                        currentDate: new Date(),
+                        status: false
+                    };
+                    taskservice.add(task)
+                        .then((r) => {
+                            $scope.data = r;
+                        }, (r) => {
+                            $scope.data = r;
+                        })
+                    $scope.taskInput = "";
+
+                    taskservice.get()
+                        .then((r) => {
+                            $scope.tasklist = r;
+                        }, (r) => {
+                            $scope.tasklist = r;
+                        })
+                }
+            }])
+    </script>
+</body>
+
+</html>

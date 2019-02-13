@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="swabhavtechlab">
+
+<head>
+    <script src="angular.js"></script>
+</head>
+
+<body>
+    <div ng-controller="firstcontroller">
+
+            <input ng-model="number">
+            <input type="submit" ng-click="submitForm(number)" value="Search">
+
+        <!-- <p>{{number}}</p> -->
+        <pre>{{ data }}</pre>
+    </div>
+    <script>
+        angular.module("swabhavtechlab", [])
+            .factory('mathservice', function ($log, $q,$http) {
+                var service = {};
+                service.getNumberApi = function (number) {
+                    return $q(function (resolve, reject) {
+                        $http({
+                            method: "GET",
+                            url: "http://numbersapi.com/" + number
+                        }).then(function mySuccess(response) {
+
+                            resolve(response.data);
+                            
+                        }, function myError(response) {
+                            reject(response.data);
+                        });
+                    })
+                }
+                return service;
+            })
+
+            .controller("firstcontroller", function ($scope, mathservice) {
+               
+                console.log("hii");
+                $scope.submitForm = function (number) {
+                    
+                    mathservice.getNumberApi(number)
+                    .then((r) => {
+                        $scope.data = r;
+                    }, (r) => {
+                        $scope.data = r;
+                    })
+                }
+            });
+    </script>
+</body>
+</html>

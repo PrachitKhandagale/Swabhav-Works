@@ -21,7 +21,6 @@ public class TestEmployee {
 		EmployeeHeirarchy employeeHirarchy=new EmployeeHeirarchy(empSet);
 		Employee ceo=employeeHirarchy.getRootEmployee();
 		ceo.display();
-		
 	}
 
 }

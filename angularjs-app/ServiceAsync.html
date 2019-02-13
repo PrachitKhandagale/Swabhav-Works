@@ -1,54 +1,108 @@
-<!DOCTYPE html>
-<html ng-app="swabhavtechlabs">
+<html ng-app="swabhavtechlab">
 
 <head>
-
     <script src="angular.js"></script>
 </head>
 
 <body>
-    <section ng-controller="firstcontroller">
-        <h1>First Controller</h1>
-        Enter:<input type="number" ng-model="checknumber" ng-style="{'background-color':color}">
-
-
+    <section ng-controller="firstController">
+        <div>
+            <p>Enter Number</p>
+            <input type="number" ng-model="evenNum" ng-keypress="showEven($event)"
+                ng-style="{'background-color':result}">
+        </div>
     </section>
-    <!-- <section ng-controller="secondcontroller">
-        <h1>Second Controller</h1>
-        Enter:<input type="number" ng-model="checknumber" ng-style="{'background-color':color}">
-        {{checknumber}}
-
-
-    </section> -->
-
-
+    <br>
+    <hr>
+    <section ng-controller="secondController">
+        <div>
+            <p>Enter Number</p>
+            <input type="number" ng-model="oddNum" ng-keypress="showOdd($event)"
+                ng-style="{'background-color':result2}">
+        </div>
+    </section>
+    <br>
     <script>
-        angular.module('swabhavtechlabs', [])
-            .factory('mathservice', ['$log', '$q', function ($log, $q) {
-                var obj = {};
-                obj.evenodd = function (number) {
-                    return $q(function (resolve, reject) {
-                        if (number % 2 == 0) {
-                            resolve("Red");
-                        }
-                        else {
-                            reject("Green");
-                        }
-                    })
-                }
-                return obj;
-            }])
-            .controller("firstcontroller", function (mathservice) {
-                mathservice.evenodd(2)
-                    .then((r) => {
-                        console.log(r);
-                    })
-                    .catch((e) => {
-                        console.log(e);
-                    })
-            });
-    </script>
 
+        var appModule = angular.module("swabhavtechlab", []);
+
+
+        function MathService($log, $rootScope, $q) {
+            return {
+                evenNumberFn: function (num) {
+                    console.log("value of num " + num);
+                    return $q(function (resolve, reject) {
+
+                        if (num % 2 == 0) {
+                            resolve('Green');
+                        } else {
+                            reject('Red');
+                        }
+
+                    });
+                },
+                oddNumberFn: function (num) {
+                    return $q(function (resolve, reject) {
+
+                        if (num % 2 == 1) {
+                            resolve('Green');
+                        } else {
+                            reject('Red');
+                        }
+
+                    });
+                }
+            };
+        }
+
+        appModule.factory("myService", MathService);
+
+        appModule.controller("firstController", ($rootScope, $scope, myService) => {
+            $rootScope.showEven = (event) => {
+
+                if (event.keyCode == 13) {
+                    var promise = myService.evenNumberFn($scope.evenNum);
+                    /*
+                    promise.then((r)=>{
+                        $scope.result=r;
+                    })
+                    promise.catch((r)=>{
+                        $scope.result=r;
+                    })
+                    */
+                    promise.then((r) => {
+                        $scope.result = r;
+                    }, (r) => {
+                        $scope.result = r;
+                    })
+
+                }
+            }
+        });
+
+
+        appModule.controller("secondController", ($rootScope, $scope, myService) => {
+            $rootScope.showOdd = (event) => {
+                if (event.keyCode == 13) {
+                    //var promise = myService.oddNumberFn($scope.oddNum);
+                    /*
+                    promise.then((r)=>{
+                        $scope.result2=r;
+                    })
+                    promise.catch((r)=>{
+                        $scope.result2=r;
+                    })
+                    */
+                    myService.oddNumberFn($scope.oddNum)
+                        .then((r) => {
+                            $scope.result2 = r;
+                        }, (r) => {
+                            $scope.result2 = r;
+                        })
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
