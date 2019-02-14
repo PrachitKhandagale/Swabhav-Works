@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="swabhavtechlabs">
+
+<head>
+    <script src="angular.js"></script>
+</head>
+
+<body ng-controller="filterController">
+    <section >
+            <p ng-init="sal=20000" style="color:{{sal|salarycolor}}">{{sal}}</p>
+    </section>
+    <section ng-init="description='Hello This is swabhav techlabs and we are student of swabhav techlabs.'">
+        <p>{{description|summary:50}}</p>
+    </section>
+    <script>
+        angular.module('swabhavtechlabs', [])
+            .filter('salarycolor', [function () {
+                return function (item) {
+                    if (item > 20000) {
+                        return "Green";
+                    }
+                    else {
+                        return "Red";
+                    }
+                }
+            }])
+            .controller('filterController', ["$scope", function ($scope) {
+                $scope.salary = 50000;
+            }])
+            .filter('summary', function () {
+                return function (item, length) {
+                    if (item.length > length) {
+                        item = item.substr(0, length);
+                        return item + "...";
+                    } else {
+                        return item;
+                    }
+                }
+            })
+    </script>
+</body>
+
+</html>

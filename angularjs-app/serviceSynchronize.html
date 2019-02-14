@@ -1,0 +1,26 @@
+<html ng-app="Swabhavtechlab">
+
+<head>
+    <script src="angular.js"></script>
+</head>
+
+<body ng-controller='serviceController'>
+    <script>
+        angular.module('Swabhavtechlab', [])
+            .service('mathservice', ['$log', function ($log) {
+                $log.info("Inside Service");
+                this.evenOdd = function (number) {
+                    if (number % 2 == 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }])
+            .controller('serviceController', ['$scope', 'mathservice', function ($scope, mathservice) {
+                console.log(mathservice.evenOdd(3));
+            }])
+    </script>
+</body>
+
+</html>

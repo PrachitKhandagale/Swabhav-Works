@@ -1,0 +1,41 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Promise Chaining</title>
+</head>
+
+<body>
+    <script>
+        let dataService = function () {
+            let service = {};
+            service.cubeOfEven = function (no) {
+                return new Promise(function (resolve, reject) {
+                    if (no % 2 == 0) {
+                        resolve(no * no * no);
+                    } else {
+                        reject("Error:no even number");
+                    }
+                });
+            }
+            return service;
+        }();
+        dataService.cubeOfEven(2)
+            .then((result) => {
+                return dataService.cubeOfEven(result);
+            })
+            .then((result) => {
+                return dataService.cubeOfEven(result);
+            })
+            .then((result) => {
+                console.log(result);
+            })
+            .catch((result) => {
+                console.log(result);
+            })
+    </script>
+</body>
+
+</html>

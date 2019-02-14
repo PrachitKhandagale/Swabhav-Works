@@ -1,0 +1,34 @@
+<html lang="en" ng-app="swabhavtechlab">
+
+<head>
+    <script src="angular.js"></script>
+</head>
+
+<body ng-controller="firstcontroller">
+    <script>
+        angular.module('swabhavtechlab', [])
+            .service('mathservice', ['$log', '$q', function ($log, $q) {
+                this.evenOdd = (number) => {
+                    return $q((resolve, reject) => {
+                        if (number % 2 == 0) {
+                            resolve("true");
+                        }
+                        else {
+                            reject("false");
+                        }
+                    })
+                }
+            }])
+            .controller("firstcontroller", function (mathservice) {
+                mathservice.evenOdd(3)
+                    .then((r) => {
+                        console.log(r);
+                    })
+                    .catch((r) => {
+                        console.log(r);
+                    })
+            })
+    </script>
+</body>
+
+</html>

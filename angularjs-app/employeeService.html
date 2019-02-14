@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html ng-app="swabhavtechlab">
+
+<head>
+
+    <script src="angular.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="jquery-3.3.1.js"></script>
+    <script src="js/bootstrap.js"> </script>
+
+    <script>
+        var app = angular.module("swabhavtechlab", []);
+        app.factory("service", function ($http) {
+            var httpPromise = $http({
+                method: 'GET',
+                url: 'https://swabhav-tech.firebaseapp.com/emp.txt'
+            });
+            return httpPromise;
+        });
+        app.service("deleteRow", function () {
+            //var this;
+            this.remove = function (employeeID, empArray) {
+                for (var i = 0; i < empArray.length; i++) {
+                    if (employeeID == empArray[i].EmpId) {
+                        empArray.splice(i, 1);
+                    }
+                }
+            }
+        });
+        app.factory("responseParser", function () {
+            var returnValue = {};
+            returnValue.parse = function (response) {
+                var i;
+                var strArray = response.data.split("\n");
+
+                for (i = 0; i < strArray.length; i++) {
+                    strArray[i] = strArray[i].replace(/\s+/g, "");
+                }
+                var strArray = strArray.filter(function (value, index, self) {
+                    return self.indexOf(value) === index;
+                });
+                console.log(strArray);
+
+                var objArray = [];
+                for (i = 0; i < strArray.length; i++) {
+                    var row = strArray[i].split(",");
+                    var obj = {
+                        EmpId: row[0],
+                        Name: row[1].replace(/'/g, ""),
+                        Designation: row[2].replace(/'/g, ""),
+                        ManagerId: row[3],
+                        Date: row[4].replace(/'/g, ""),
+                        Salary: row[5],
+                        Commission: row[6],
+                        DepartmentNumber: row[7]
+                    };
+                    objArray.push(obj);
+                    console.log(obj);
+                }
+                return objArray;
+            };
+
+            return returnValue;
+        });
+
+        // app.service("employeeService", function () {
+        //     this.getData = () => {
+        //         $http({
+        //             method: 'GET',
+        //             url: 'https://swabhav-tech.firebaseapp.com/emp.txt'
+        //         }).then(function mySuccess(response) {
+        //             $scope.data = response.data;
+        //         })
+        //     }
+        // });
+        app.controller("employeeController", function ($scope, service, responseParser, deleteRow) {
+
+            $scope.display = function () {
+                service.then(function (response) {
+                    $scope.data = responseParser.parse(response);
+
+                });
+            }
+
+            $scope.delete = function (employeeId) {
+                deleteRow.remove(employeeId, $scope.data);
+
+            }
+        });
+
+
+    </script>
+
+</head>
+
+<body ng-controller="employeeController" class="container">
+    <section>
+        <div>
+            <h1>Employee</h1>
+            Employee Id:<input type="number"><br>
+            Employee Name:<input type="text"><br>
+            Designation:<input type="text"><br>
+            ManagerId:<input type="text"><br>
+            Date:<input type="date"><br>
+            Salary:<input type="number"><br>
+            Commission:<input type="text"><br>
+            Department Number:<input type="text"><br>
+            <input type="button" value="Display" ng-click="display()">
+
+        </div>
+        <hr><br><br>
+        <div>
+            Search <input type='text' ng-model='searchText' placeholder="Search " />
+            <br><br><br><br><br>
+            <table ng-if="data.length>0" class="table table-bordered">
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Emp Id</th>
+                    <th>Employee Name</th>
+                    <th>Designation</th>
+                    <th>Manager Id</th>
+                    <th>Date of Joining</th>
+                    <th>Salary</th>
+                    <th>Commission</th>
+                    <th>Department Number</th>
+                    <th>Action</th>
+                    <th>Index</th>
+                </tr>
+                <tr ng-repeat="i in data | orderBy:'Name'| filter:searchText">
+                    <td>{{$index+1}}</td>
+                    <td>{{i.EmpId}}</td>
+                    <td>{{i.Name}}</td>
+                    <td>{{i.Designation}}</td>
+                    <td>{{i.ManagerId}}</td>
+                    <td>{{i.Date}}</td>
+                    <td>{{i.Salary}}</td>
+                    <td>{{i.Commission}}</td>
+                    <td>{{i.DepartmentNumber}}</td>
+                    <!-- <td class='glyphicon glyphicon-remove btn btn-default'></td> -->
+                    <td><button class="btn btn-danger" ng-click="delete(i.EmpId)">&times;</button></a></td>
+                    <td>{{i.EmpId}}</td>
+                </tr>
+            </table>
+        </div>
+
+    </section>
+
+
+
+</body>
+
+</html>
