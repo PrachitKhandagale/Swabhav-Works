@@ -2,116 +2,188 @@
 <html ng-app="swabhavtechlab">
 
 <head>
-
     <script src="angular.js"></script>
     <link rel="stylesheet" href="css/bootstrap.css">
     <script src="jquery-3.3.1.js"></script>
-    <script src="js/bootstrap.js"> </script>
+    <script src="js/bootstrap.js"></script>
 
     <script>
         var app = angular.module("swabhavtechlab", []);
-        app.factory("service", function ($http) {
-            var httpPromise = $http({
-                method: 'GET',
-                url: 'https://swabhav-tech.firebaseapp.com/emp.txt'
-            });
-            return httpPromise;
-        });
-        app.service("deleteRow", function () {
-            //var this;
-            this.remove = function (employeeID, empArray) {
-                for (var i = 0; i < empArray.length; i++) {
-                    if (employeeID == empArray[i].EmpId) {
-                        empArray.splice(i, 1);
+
+        app.factory("employeeService", function ($http) {
+            return {
+                httpPromise: $http({
+                    method: 'GET',
+                    url: 'https://swabhav-tech.firebaseapp.com/emp.txt'
+                }),
+
+                remove: function (employeeID, empArray) {
+                    var ask = confirm("Do you want to delete?");
+                    if (ask) {
+                        for (var i = 0; i < empArray.length; i++) {
+                            if (employeeID == empArray[i].EmpId) {
+                                empArray.splice(i, 1);
+                            }
+                        }
                     }
-                }
-            }
-        });
-        app.factory("responseParser", function () {
-            var returnValue = {};
-            returnValue.parse = function (response) {
-                var i;
-                var strArray = response.data.split("\n");
+                },
 
-                for (i = 0; i < strArray.length; i++) {
-                    strArray[i] = strArray[i].replace(/\s+/g, "");
-                }
-                var strArray = strArray.filter(function (value, index, self) {
-                    return self.indexOf(value) === index;
-                });
-                console.log(strArray);
 
-                var objArray = [];
-                for (i = 0; i < strArray.length; i++) {
-                    var row = strArray[i].split(",");
-                    var obj = {
-                        EmpId: row[0],
-                        Name: row[1].replace(/'/g, ""),
-                        Designation: row[2].replace(/'/g, ""),
-                        ManagerId: row[3],
-                        Date: row[4].replace(/'/g, ""),
-                        Salary: row[5],
-                        Commission: row[6],
-                        DepartmentNumber: row[7]
-                    };
-                    objArray.push(obj);
-                    console.log(obj);
+                parse: function (response) {
+                    var i;
+                    var strArray = response.data.split("\n");
+
+                    for (i = 0; i < strArray.length; i++) {
+                        strArray[i] = strArray[i].replace(/\s+/g, "");
+                    }
+                    var strArray = strArray.filter(function (value, index, self) {
+                        return self.indexOf(value) === index;
+                    });
+                    console.log(strArray);
+
+                    var objArray = [];
+                    for (i = 0; i < strArray.length; i++) {
+                        var row = strArray[i].split(",");
+                        var obj = {
+                            EmpId: row[0],
+                            Name: row[1].replace(/'/g, ""),
+                            Designation: row[2].replace(/'/g, ""),
+                            ManagerId: row[3],
+                            Date: row[4].replace(/'/g, ""),
+                            Salary: row[5],
+                            Commission: row[6],
+                            DepartmentNumber: row[7]
+                        };
+                        objArray.push(obj);
+                        console.log(obj);
+                    }
+                    return objArray;
                 }
-                return objArray;
             };
-
-            return returnValue;
         });
 
-        // app.service("employeeService", function () {
-        //     this.getData = () => {
-        //         $http({
-        //             method: 'GET',
-        //             url: 'https://swabhav-tech.firebaseapp.com/emp.txt'
-        //         }).then(function mySuccess(response) {
-        //             $scope.data = response.data;
-        //         })
-        //     }
-        // });
-        app.controller("employeeController", function ($scope, service, responseParser, deleteRow) {
+        app.controller("employeeController", function ($scope, employeeService) {
 
             $scope.display = function () {
-                service.then(function (response) {
-                    $scope.data = responseParser.parse(response);
-
+                console.log("inside display")
+                employeeService.httpPromise.then(function (response) {
+                    var storeData = employeeService.parse(response);
+                    $scope.data = $scope.data.concat(storeData);
                 });
             }
-
             $scope.delete = function (employeeId) {
-                deleteRow.remove(employeeId, $scope.data);
-
+                employeeService.remove(employeeId, $scope.data);
             }
+            $scope.add = function () {
+
+                var empId = Math.floor(Math.random() * 9000) + 1000;
+                empId = ((new Date()).getTime()) % 10000;
+
+                let newobj = {
+
+                    EmpId: empId,
+                    Name: $scope.Name,
+                    Designation: $scope.Designation,
+                    ManagerId: $scope.ManagerId,
+                    Date: $scope.Date,
+                    Salary: $scope.Salary,
+                    Commission: $scope.Commission,
+                    DepartmentNumber: $scope.DepartmentNumber
+                }
+                if (newobj.Name == null || newobj.Designation==null || newobj.ManagerId==null
+                || newobj.Date==null || newobj.Salary==null || newobj.Commission==null
+                || newobj.DepartmentNumber==null) {
+                    alert("All fields are mandatory");
+                } else {
+                    console.log(newobj);
+                    $scope.data.push(newobj);
+                }
+
+            };
+            $scope.departmentList = [];
+            $scope.designationList = [];
+            var date = new Date();
+            $scope.data = [];
+            employeeService.httpPromise.then(function (response) {
+                var storeData = employeeService.parse(response);
+                for (var i = 0; i < storeData.length; i++) {
+                    $scope.designationList.push(storeData[i].Designation);
+                    $scope.departmentList.push(storeData[i].DepartmentNumber);
+
+                }
+                $scope.designationList = $scope.designationList.filter(function (value, index, self) {
+                    return self.indexOf(value) === index;
+                });
+                $scope.departmentList = $scope.departmentList.filter(function (value, index, self) {
+                    return self.indexOf(value) === index;
+                });
+                // $scope.data=$scope.data.concat(storeData);
+            });
         });
 
-
     </script>
-
 </head>
 
 <body ng-controller="employeeController" class="container">
     <section>
         <div>
-            <h1>Employee</h1>
-            Employee Id:<input type="number"><br>
-            Employee Name:<input type="text"><br>
-            Designation:<input type="text"><br>
-            ManagerId:<input type="text"><br>
-            Date:<input type="date"><br>
-            Salary:<input type="number"><br>
-            Commission:<input type="text"><br>
-            Department Number:<input type="text"><br>
-            <input type="button" value="Display" ng-click="display()">
+            <h1>Employee</h1><br>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputempName" class="col-sm-2 control-label">Enter Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="Enter Name" ng-model="Name">
+                        {{Name}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputempDesignation" class="col-sm-2 control-label">Designation</label>
+                    <div class="col-sm-10">
+                        <select class="form-control dropdown-header"
+                            ng-options="designation for designation in designationList" ng-model="Designation"></select>
+                        {{Designation}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputempMgrId" class="col-sm-2 control-label">Manager Id</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="ManagerId">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputempDate" class="col-sm-2 control-label">Date</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" placeholder="DD-MM-YYYY" ng-model="Date">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputempSalary" class="col-sm-2 control-label">Salary</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" placeholder="Enter Salary" ng-model="Salary">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputempCommission" class="col-sm-2 control-label">Commission</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="Enter commission" ng-model="Commission">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputempDeptNo" class="col-sm-2 control-label">Department Number</label>
+                    <div class="col-sm-10">
+                        <select ng-model="DepartmentNumber" class="form-control"
+                            ng-options="department for department in departmentList"></select>
+                    </div>
+                </div>
+                <input type="button" value="Display" ng-click="display()">
+                <input type="button" value="Add" ng-click="add()">
+            </form>
 
         </div>
-        <hr><br><br>
+        <hr><br>
         <div>
             Search <input type='text' ng-model='searchText' placeholder="Search " />
-            <br><br><br><br><br>
+            <br><br><br>
             <table ng-if="data.length>0" class="table table-bordered">
                 <tr>
                     <th>Sr. No.</th>
@@ -124,7 +196,7 @@
                     <th>Commission</th>
                     <th>Department Number</th>
                     <th>Action</th>
-                    <th>Index</th>
+
                 </tr>
                 <tr ng-repeat="i in data | orderBy:'Name'| filter:searchText">
                     <td>{{$index+1}}</td>
@@ -138,7 +210,7 @@
                     <td>{{i.DepartmentNumber}}</td>
                     <!-- <td class='glyphicon glyphicon-remove btn btn-default'></td> -->
                     <td><button class="btn btn-danger" ng-click="delete(i.EmpId)">&times;</button></a></td>
-                    <td>{{i.EmpId}}</td>
+
                 </tr>
             </table>
         </div>

@@ -9,6 +9,7 @@ public class Employee implements Comparable<Employee>{
 	private String empName;
 	private String designation;
 	private static String compositeBuilder = " ";
+	private StringBuffer stringBuffer=new StringBuffer();
 	private List<Employee> empList = new ArrayList<Employee>();
 
 	public Employee(Integer empId, Integer managerId, String empName, String designation) {
@@ -25,6 +26,17 @@ public class Employee implements Comparable<Employee>{
 			e.display();
 		}
 		compositeBuilder = len;
+	}
+	public StringBuffer displayDetails() {
+		stringBuffer.append("<Employee");
+		stringBuffer.append(" name=\""+empName+"\" id=\""+empId+"\" designation=\""+designation+"\">");
+		for(Employee employee:empList) {
+			stringBuffer.append("<Reportee>");
+			stringBuffer.append(" "+employee.displayDetails());
+			stringBuffer.append("</Reportee>");
+		}
+		stringBuffer.append("</Employee>");
+		return stringBuffer;
 	}
 
 	public String getDesignation() {
