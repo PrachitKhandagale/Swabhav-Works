@@ -1,0 +1,37 @@
+<section id="display">
+    <div id="printData">
+        <!-- <button ng-click="displayData()" class="btn btn-primary">Display</button> -->
+        <span class="label label-primary">Total Students</span>
+        <span class="badge">{{data.length}}</span>
+        <table ng-if="data.length>0" class="table table-bordered">
+            <tr>
+                <th>Sr. No.</th>
+                <th>Id</th>
+                <th>Roll Number</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Date</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th colspan="2">Actions</th>
+
+            </tr>
+            <tr ng-repeat="i in data | orderBy:'name'">
+                <td>{{$index+1}}</td>
+                <td>{{i.id}}</td>
+                <td>{{i.rollno}}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.email}}</td>
+                <td>{{i.date|date:'shortDate'}}</td>
+                <td>{{i.age}}</td>
+                <td ng-if="i.isMale">Male</td>
+                <td ng-if="!i.isMale">Female</td>
+                <td><input type="button" ng-click="delete(i.id)" class="delete" id="delete" value="Delete"></span></td>
+                <td><a href="#/edit/{{i.id}}" ><input type="button" class="edit" id="edit" value="Edit"></a></td>
+                <!-- <td><a href="#/loginform" ><input type="button" class="edit" id="edit" value="Edit"></a></td> -->
+               
+            </tr>
+        </table>
+
+    </div>
+</section>
