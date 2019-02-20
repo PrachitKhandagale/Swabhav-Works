@@ -13,10 +13,10 @@ studentModule.controller("formController", function ($scope, studentService) {
             //alert("Data Added.");
 
             // studentService.displayData();
+        });
+        httpPromise.catch(function(response){
+            alert("Error:something went wrong");
         })
         //$scope.displayData();
     }
-
-    
-
 });

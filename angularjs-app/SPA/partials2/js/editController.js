@@ -15,12 +15,10 @@ studentModule.controller("editController", ['$scope', '$routeParams', 'studentSe
                 console.log($scope.s);
             });
         }
-
     };
 
     $scope.editStudentData = function () {
         studentService.updateStudentData($scope.s);
     }
-
     $scope.edit();
 }]);
