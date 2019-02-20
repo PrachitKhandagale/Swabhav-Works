@@ -1,5 +1,5 @@
-studentModule.controller("formController", function ($scope, studentService) {
-        
+studentModule.controller("formController", function ($scope,$rootScope, studentService) {
+    
     $scope.add = function () {
         $scope.Studentobj = $scope.s;
         var httpPromise = studentService.add($scope.Studentobj);

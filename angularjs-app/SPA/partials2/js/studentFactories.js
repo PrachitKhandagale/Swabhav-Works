@@ -1,4 +1,4 @@
-studentModule.factory("studentService", function ($http) {
+studentModule.factory("studentService", function ($http,studentUrl) {
     var returnData = {};
 
     returnData.add = function (obj) {
@@ -15,7 +15,7 @@ studentModule.factory("studentService", function ($http) {
             alert("All fields are mandatory");
         } else {
             console.log("inside else");
-            return $http.post('http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/', obj);
+            return $http.post(studentUrl.url, obj);
 
         }
     }
@@ -23,28 +23,28 @@ studentModule.factory("studentService", function ($http) {
     returnData.getStudentById = function (studentId) {
         console.log(studentId);
 
-        return $http.get("http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/" + studentId);
+        return $http.get(studentUrl.url + studentId);
             
 
     }
 
     returnData.updateStudentData = function (Studentobj) {
-        //Studentobj = $scope.Studentobj;
+        
 
-       return $http.put('http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/' + Studentobj.id, Studentobj)
+       return $http.put(studentUrl.url + Studentobj.id, Studentobj)
             .then(function (response) {
-                //alert("Data of " + Studentobj.name + " Added");
+                
                 window.location = "#/display";
             })
 
     }
 
     returnData.displayData = function () {
-        return $http.get('http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/');
+        return $http.get(studentUrl.url);
 
     }
     returnData.deleteData = function (sid) {
-        return $http.delete(`http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/${sid}`);
+        return $http.delete(studentUrl.url + sid);
     }
     return returnData;
 

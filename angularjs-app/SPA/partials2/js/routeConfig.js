@@ -19,4 +19,8 @@ studentModule.config(function ($routeProvider) {
             templateUrl: 'Student/Loginform.html',
             controller: 'loginController'
         })
+        .when('/logout',{
+            template: '<div></div>',
+            controller: 'logoutController'
+        })
 })
