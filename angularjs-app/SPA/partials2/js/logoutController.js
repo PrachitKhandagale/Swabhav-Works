@@ -9,5 +9,4 @@ studentModule.controller("logoutController", function ($scope,$rootScope) {
             //alert("You Successfully Logout !!");
             window.location=`#/display`;
         }
-     
 });

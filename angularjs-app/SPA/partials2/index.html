@@ -16,6 +16,7 @@
     <script src="js/formController.js"></script>
     <script src="js/editController.js"></script>
     <script src="js/logoutController.js"></script>
+    <script src="js/footerController.js"></script>
     <script src="js/footerDirective.js"></script>
     <link rel="stylesheet" href="../../css/bootstrap.css">
     <script src="../../jquery-3.3.1.js"></script>
@@ -42,7 +43,9 @@
     <article ng-view>
 
     </article>
-    <div footer-Directive></div>
+    <!-- <div footer-Directive></div> -->
+    <div ng-controller="footerController"><footer-directive></footer-directive></div>
+    
 </body>
 
 </html>

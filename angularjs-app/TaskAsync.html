@@ -71,6 +71,7 @@
                     var task = {
                         description: $scope.taskInput,
                         currentDate: moment(new Date()).format('lll'),
+                        //currentDate:moment().format(),
                         // currentDate: new Date(),
                         status: false
                     };
@@ -90,6 +91,11 @@
                         })
                 }
             }])
+            // .filter('dateFromNow',function(){
+            //     return function(currentDate){
+            //         return moment(currentDate).startOf('second').fromNow()
+            //     }
+            // })
     </script>
 </body>
 

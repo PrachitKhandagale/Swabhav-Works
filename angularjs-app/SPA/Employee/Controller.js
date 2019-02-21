@@ -1,16 +1,23 @@
 angular.module("SwabhavTechLab")
-.controller("employeeController", function ($scope, employeeService) {
-
+.controller("displayController", function ($scope, employeeService) {
+    $scope.data = [];
     $scope.display = function () {
-        console.log("inside display")
+
+        console.log("inside display");
+        if($scope.data.length==0){
         employeeService.httpPromise.then(function (response) {
             var storeData = employeeService.parse(response);
             $scope.data = $scope.data.concat(storeData);
         });
     }
+    }
+    $scope.display();
     $scope.delete = function (employeeId) {
         employeeService.remove(employeeId, $scope.data);
     }
+
+})
+.controller("formController", function ($scope, employeeService) {
     $scope.add = function () {
 
         var empId = Math.floor(Math.random() * 9000) + 1000;
@@ -34,6 +41,8 @@ angular.module("SwabhavTechLab")
         } else {
             console.log(newobj);
             $scope.data.push(newobj);
+            console.log($scope.data.length);
+           // window.location="#/display";
         }
 
     };

@@ -5,12 +5,12 @@ angular.module("SwabhavTechLab", ["ui.router"])
                 .state('form', {
                     url: '/form',
                     templateUrl: 'partialEmployee/form.html',
-                    controller: 'employeeController'
+                    controller: 'formController'
                 })
                 .state('display', {
                     url: '/display',
                     templateUrl: 'partialEmployee/display.html',
-                    controller: 'employeeController'
+                    controller: 'displayController'
                 })
             $urlRouterProvider.otherwise('/form')
         })
@@ -31,7 +31,6 @@ angular.module("SwabhavTechLab", ["ui.router"])
                     }
                 }
             },
-
 
             parse: function (response) {
                 var i;
