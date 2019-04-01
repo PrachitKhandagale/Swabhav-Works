@@ -1,5 +1,5 @@
-studentModule.controller('footerController', ['$rootScope', function($rootScope) {
-    $rootScope.footer = {
+studentModule.controller('footerController', ['$scope', function($scope) {
+    $scope.footer = {
       company: 'Swabhav Techlabs',
       year: '2019'
     };

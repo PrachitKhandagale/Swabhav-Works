@@ -25,6 +25,22 @@ public class EmployeeHeirarchyBuild {
 		return rootEmployee;
 	}
 
+	public Employee getRootEmployee() {
+		return rootEmployee;
+	}
+
+	public void setRootEmployee(Employee rootEmployee) {
+		this.rootEmployee = rootEmployee;
+	}
+
+	public Map<Integer, Employee> getEmpMap() {
+		return empMap;
+	}
+
+	public void setEmpMap(Map<Integer, Employee> empMap) {
+		this.empMap = empMap;
+	}
+
 	public void getEmployeeHeirachy() {
 		for (Map.Entry<Integer, Employee> entry : empMap.entrySet()) {
 			if (empMap.containsKey(entry.getValue().getManagerId())) {
